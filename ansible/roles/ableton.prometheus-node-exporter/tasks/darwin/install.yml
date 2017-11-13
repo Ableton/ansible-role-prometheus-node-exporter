@@ -1,0 +1,14 @@
+---
+- name: Ensure LaunchDaemon plist file exists
+  become: true
+  become_user: root
+  become_method: sudo
+  template:
+    src: "{{ role_path }}/files/{{ node_exporter_ident }}.plist.j2"
+    dest: "{{ node_exporter_plist }}"
+
+- name: Ensure node_exporter service is loaded
+  become: true
+  become_user: root
+  become_method: sudo
+  shell: "launchctl load {{ node_exporter_plist }}"

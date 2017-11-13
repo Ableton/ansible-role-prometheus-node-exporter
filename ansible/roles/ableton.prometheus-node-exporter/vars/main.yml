@@ -1,0 +1,19 @@
+---
+# List of operating systems where node_exporter can be installed from
+# a package manager.
+can_install_from_package:
+  - Debian
+  - Windows
+
+# Name of the node_exporter executable
+node_exporter_exe: 'node_exporter'
+
+# Service identifier (used by macOS)
+node_exporter_ident: 'io.prometheus.node_exporter'
+
+# Fully-qualified name of the node_exporter golang package
+node_exporter_pkg: 'github.com/prometheus/node_exporter'
+
+# Location to install the launchctl plist file (used by macOS)
+node_exporter_plist: "/Library/LaunchDaemons/\
+  {{ node_exporter_ident }}.plist"

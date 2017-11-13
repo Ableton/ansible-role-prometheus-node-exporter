@@ -1,0 +1,27 @@
+---
+- name: Fetch node_exporter sources
+  shell: "go get {{ node_exporter_pkg }}"
+  # On platforms like macOS, we need to make sure that /usr/local/bin is in the
+  # path, which is not guaranteed to be the case even if golang has been
+  # installed via homebrew.
+  environment:
+    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
+
+- set_fact:
+    node_exporter_path: "{{ ansible_env.GOPATH }}/src/{{ node_exporter_pkg }}"
+  when: ansible_env.GOPATH is defined
+
+- set_fact:
+    node_exporter_path: "{{ ansible_env.HOME }}/go/src/{{ node_exporter_pkg }}"
+  when: ansible_env.GOPATH is not defined
+
+- name: Make node_exporter
+  shell: make
+  args:
+    chdir: "{{ node_exporter_path }}"
+    creates: "{{ node_exporter_path }}/node_exporter"
+  environment:
+    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
+
+- set_fact:
+    node_exporter_exe: "{{ node_exporter_path }}/node_exporter"

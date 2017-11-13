@@ -1,0 +1,5 @@
+---
+- name: Install prometheus-wmi-exporter package
+  win_chocolatey:
+    name: prometheus-wmi-exporter.install
+    state: present

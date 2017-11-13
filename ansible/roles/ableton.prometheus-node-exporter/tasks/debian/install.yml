@@ -1,0 +1,8 @@
+---
+- name: Install prometheus-node-exporter package
+  become: true
+  become_user: root
+  become_method: sudo
+  apt:
+    name: prometheus-node-exporter
+    state: present
