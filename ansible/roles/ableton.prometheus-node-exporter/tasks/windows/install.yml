@@ -2,4 +2,5 @@
 - name: Install prometheus-wmi-exporter package
   win_chocolatey:
     name: prometheus-wmi-exporter.install
+    params: "/ListenPort:{{ node_exporter_port }}"
     state: present
