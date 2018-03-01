@@ -11,6 +11,9 @@ node_exporter_exe: 'node_exporter'
 # Service identifier (used by macOS)
 node_exporter_ident: 'io.prometheus.node_exporter'
 
+# Number of parallel jobs to use when building node_exporter from source.
+node_exporter_make_jobs: 4
+
 # Fully-qualified name of the node_exporter golang package
 node_exporter_pkg: 'github.com/prometheus/node_exporter'
 

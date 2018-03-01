@@ -16,7 +16,7 @@
   when: ansible_env.GOPATH is not defined
 
 - name: Make node_exporter
-  shell: make
+  shell: "make -j{{ node_exporter_make_jobs }}"
   args:
     chdir: "{{ node_exporter_path }}"
     creates: "{{ node_exporter_path }}/node_exporter"
