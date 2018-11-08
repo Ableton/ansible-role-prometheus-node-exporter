@@ -7,11 +7,13 @@
   environment:
     PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
 
-- set_fact:
+- name: Set node_exporter_path with GOPATH
+  set_fact:
     node_exporter_path: "{{ ansible_env.GOPATH }}/src/{{ node_exporter_pkg }}"
   when: ansible_env.GOPATH is defined
 
-- set_fact:
+- name: Set node_exporter_path manually
+  set_fact:
     node_exporter_path: "{{ ansible_env.HOME }}/go/src/{{ node_exporter_pkg }}"
   when: ansible_env.GOPATH is not defined
 
@@ -23,5 +25,6 @@
   environment:
     PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
 
-- set_fact:
+- name: Set node_exporter_exe with absolute path of node_exporter
+  set_fact:
     node_exporter_exe: "{{ node_exporter_path }}/node_exporter"
