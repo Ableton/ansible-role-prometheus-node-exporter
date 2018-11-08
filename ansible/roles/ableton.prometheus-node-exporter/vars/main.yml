@@ -2,6 +2,7 @@
 # List of operating systems where node_exporter can be installed from
 # a package manager.
 can_install_from_package:
+  - Darwin
   - Debian
   - Windows
 
