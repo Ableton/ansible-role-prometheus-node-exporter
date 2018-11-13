@@ -7,16 +7,16 @@ can_install_from_package:
   - Windows
 
 # Name of the node_exporter executable
-node_exporter_exe: 'node_exporter'
+node_exporter_exe: "node_exporter"
 
 # Service identifier (used by macOS)
-node_exporter_ident: 'io.prometheus.node_exporter'
+node_exporter_ident: "io.prometheus.node_exporter"
 
 # Number of parallel jobs to use when building node_exporter from source.
 node_exporter_make_jobs: 4
 
 # Fully-qualified name of the node_exporter golang package
-node_exporter_pkg: 'github.com/prometheus/node_exporter'
+node_exporter_pkg: "github.com/prometheus/node_exporter"
 
 # Location to install the launchctl plist file (used by macOS)
 node_exporter_plist: "/Library/LaunchDaemons/\
