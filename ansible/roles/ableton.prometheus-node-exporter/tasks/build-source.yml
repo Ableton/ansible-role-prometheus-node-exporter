@@ -6,6 +6,8 @@
   # installed via homebrew.
   environment:
     PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
+  args:
+    creates: "{{ ansible_env.HOME }}/go/src/{{ node_exporter_pkg }}"
 
 - name: Set node_exporter_path with GOPATH
   set_fact:
