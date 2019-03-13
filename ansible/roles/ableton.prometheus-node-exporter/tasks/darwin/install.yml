@@ -1,20 +1,12 @@
 ---
-- name: Fetch node_exporter package
-  command: "go get {{ node_exporter_pkg }}"
-  # On macOS, we need to make sure that /usr/local/bin is in the path, which is not
-  # guaranteed to be the case even if golang has been installed via homebrew.
-  environment:
-    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
+- name: Install node_exporter package
+  homebrew:
+    name: "node_exporter"
+    state: present
 
-- name: Set node_exporter_path with GOPATH
+- name: Set node_exporter_exe to homebrew's installation path
   set_fact:
-    node_exporter_exe: "{{ ansible_env.GOPATH }}/bin/node_exporter"
-  when: ansible_env.GOPATH is defined
-
-- name: Set node_exporter_path manually
-  set_fact:
-    node_exporter_exe: "{{ ansible_env.HOME }}/go/bin/node_exporter"
-  when: ansible_env.GOPATH is not defined
+    node_exporter_exe: "/usr/local/bin/node_exporter"
 
 - name: Ensure LaunchDaemon plist file exists
   become: true
