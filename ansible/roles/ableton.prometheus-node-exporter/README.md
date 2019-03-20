@@ -13,7 +13,7 @@ Supported Host OS Types
 This role supports package-based installation on the following OS types:
 
 - Debian Linux (via the `apt` module)
-- Mac OS X (via `go get`)
+- Mac OS X (via the `homebrew` module)
 - Windows (via the `win_chocolatey` module)
 
 For all other platforms, a source-based installation will be performed.
