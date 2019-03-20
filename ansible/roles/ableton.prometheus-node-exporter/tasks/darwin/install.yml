@@ -16,4 +16,4 @@
 
 - name: Ensure node_exporter service is loaded
   become: true
-  shell: "launchctl load {{ node_exporter_plist }}"
+  command: "launchctl load {{ node_exporter_plist }}"
