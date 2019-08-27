@@ -1,6 +1,5 @@
 ---
-# List of operating systems where node_exporter can be installed from
-# a package manager.
+# List of operating systems where node_exporter can be installed from a package manager.
 can_install_from_package:
   - Darwin
   - Debian
@@ -19,5 +18,4 @@ node_exporter_make_jobs: 4
 node_exporter_pkg: "github.com/prometheus/node_exporter"
 
 # Location to install the launchctl plist file (used by macOS)
-node_exporter_plist: "/Library/LaunchDaemons/\
-  {{ node_exporter_ident }}.plist"
+node_exporter_plist: "/Library/LaunchDaemons/{{ node_exporter_ident }}.plist"
