@@ -1,3 +1,5 @@
 ---
 - include_tasks: "{{ ansible_os_family | lower }}/install_package.yml"
   when: ansible_os_family in node_exporter_install_from_package_manager
+
+- include_tasks: "{{ ansible_os_family | lower }}/configure_service.yml"
