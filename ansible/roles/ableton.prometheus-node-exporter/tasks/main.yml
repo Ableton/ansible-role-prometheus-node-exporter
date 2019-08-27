@@ -2,8 +2,5 @@
 - include_tasks: "{{ ansible_os_family | lower }}/install.yml"
   when: ansible_os_family in can_install_from_package
 
-- include_tasks: "build-source.yml"
-  when: ansible_os_family not in can_install_from_package
-
 - include_tasks: "{{ ansible_os_family | lower }}/install.yml"
   when: ansible_os_family not in can_install_from_package
