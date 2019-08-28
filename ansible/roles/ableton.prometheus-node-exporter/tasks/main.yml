@@ -1,3 +1,3 @@
 ---
 - include_tasks: "{{ ansible_os_family | lower }}/install.yml"
-  when: ansible_os_family in can_install_from_package
+  when: ansible_os_family in node_exporter_install_from_package_manager
