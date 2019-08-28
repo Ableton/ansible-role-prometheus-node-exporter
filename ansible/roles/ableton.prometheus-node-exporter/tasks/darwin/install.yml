@@ -11,7 +11,7 @@
 - name: Ensure LaunchDaemon plist file exists
   become: true
   template:
-    src: "{{ role_path }}/files/{{ node_exporter_ident }}.plist.j2"
+    src: "{{ role_path }}/templates/{{ node_exporter_ident }}.plist.j2"
     dest: "{{ node_exporter_plist }}"
 
 - name: See if node_exporter service is running
