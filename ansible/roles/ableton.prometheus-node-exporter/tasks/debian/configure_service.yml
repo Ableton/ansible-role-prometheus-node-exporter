@@ -8,3 +8,35 @@
       ARGS='{{ node_exporter_args | join(' ') }}
         -web.listen-address=":{{ node_exporter_port }}"'
     state: present
+  when: not node_exporter_install_from_binary
+
+- name: Get systemd version
+  command: systemctl --version  # noqa 303
+  changed_when: false
+  check_mode: false
+  register: systemd_version
+
+- name: Set systemd version fact
+  set_fact:
+    node_exporter_systemd_version: >
+      {{ systemd_version.stdout_lines[0] | regex_replace('^systemd\\s(\\d+).*$', '\\1') }}
+
+- name: Ensure that the node_exporter systemd service file exists
+  become: true
+  template:
+    src: "{{ role_path }}/templates/node_exporter.service.j2"
+    dest: "/etc/systemd/system/node_exporter.service"
+    owner: root
+    group: root
+    mode: 0644
+  when: node_exporter_install_from_binary
+  notify: systemd restart node_exporter
+
+- name: Ensure Node Exporter service is running and enabled on boot
+  become: true
+  systemd:
+    daemon_reload: true
+    name: "node_exporter"
+    enabled: true
+    state: started
+  when: node_exporter_install_from_binary

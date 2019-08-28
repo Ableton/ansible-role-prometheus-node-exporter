@@ -1,0 +1,4 @@
+---
+- name: Fail because Windows binary installation is not yet supported
+  fail:
+    msg: "Installing node_exporter from binary zipfile is not supported on Windows"
