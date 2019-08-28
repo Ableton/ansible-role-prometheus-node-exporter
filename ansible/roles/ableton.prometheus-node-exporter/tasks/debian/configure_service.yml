@@ -4,5 +4,7 @@
   lineinfile:
     path: "/etc/default/prometheus-node-exporter"
     regexp: "^ARGS="
-    line: "ARGS='{{ node_exporter_args | join(' ') }}'"
+    line: >
+      ARGS='{{ node_exporter_args | join(' ') }}
+        -web.listen-address=":{{ node_exporter_port }}"'
     state: present
