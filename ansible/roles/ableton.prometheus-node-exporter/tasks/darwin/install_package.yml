@@ -1,0 +1,5 @@
+---
+- name: Install node_exporter package
+  homebrew:
+    name: "node_exporter"
+    state: present
