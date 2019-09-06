@@ -1,4 +1,7 @@
 ---
+# Arguments to pass to the node_exporter service, one argument per line.
+node_exporter_args: []
+
 # Port to listen on
 # TODO: This variable is currently only used on Windows
 node_exporter_port: 9100

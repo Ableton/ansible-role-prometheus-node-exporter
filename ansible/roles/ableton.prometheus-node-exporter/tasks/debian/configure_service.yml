@@ -1,1 +1,8 @@
 ---
+- name: Set node_exporter args for apt package installation
+  become: true
+  lineinfile:
+    path: "/etc/default/prometheus-node-exporter"
+    regexp: "^ARGS="
+    line: "ARGS='{{ node_exporter_args | join(' ') }}'"
+    state: present
