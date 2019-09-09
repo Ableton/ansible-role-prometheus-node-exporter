@@ -3,6 +3,19 @@
   set_fact:
     node_exporter_exe: "/usr/local/bin/node_exporter"
 
+- name: Initialize fact for node_exporter extra arguments
+  set_fact:
+    node_exporter_args_mac: ""
+
+- name: Build node_exporter extra arguments
+  set_fact:
+    node_exporter_args_mac: >
+      {{ node_exporter_args_mac }}
+      <string>{{ node_exporter_arg }}</string>
+  with_items: "{{ node_exporter_args }}"
+  loop_control:
+    loop_var: node_exporter_arg
+
 - name: Ensure LaunchDaemon plist file exists
   become: true
   template:

@@ -25,6 +25,8 @@
   <key>ProgramArguments</key>
   <array>
     <string>{{ node_exporter_exe }}</string>
+    {{ node_exporter_args_mac }}
+    <string>-web.listen-address=\":{{ node_exporter_port }}\"</string>
   </array>
   <key>RunAtLoad</key>
   <true/>

@@ -1,0 +1,90 @@
+---
+- name: Set fact to determine if node_exporter should be installed
+  set_fact:
+    node_exporter_should_install: false
+
+- name: See if node_exporter exists
+  stat:
+    path: "{{ node_exporter_dest }}/{{ node_exporter_exe }}"
+  register: node_exporter_exists
+
+- name: Install node_exporter if it does not exist
+  set_fact:
+    node_exporter_should_install: true
+  when: not node_exporter_exists.stat.exists
+
+# Almost all go binaries will output their version to stderr in the following format:
+# binary_name, version X.Y.Z (branch: HEAD, revision: 1234abcd)
+#  build user:       root@b50852a1acba
+#  build date:       20190604-16:41:18
+#  go version:       go1.12.5
+- name: Get node_exporter version
+  shell: |
+    set -o pipefail
+    {{ node_exporter_dest }}/{{ node_exporter_exe }} --version 2>&1 |
+    head -1 |
+    awk '{print $3}'
+  args:
+    executable: "/bin/bash"
+  changed_when: false
+  register: node_exporter_installed_version
+  when: node_exporter_exists.stat.exists
+
+- name: Install node_exporter if the version does not match
+  set_fact:
+    node_exporter_should_install: true
+  when: >
+    node_exporter_exists.stat.exists and
+    node_exporter_installed_version.stdout != node_exporter_version
+
+- name: Ensure that the group for node_exporter exists
+  become: true
+  group:
+    name: "{{ node_exporter_group }}"
+    system: true
+    state: present
+  when: node_exporter_should_install
+
+- name: Ensure that the user for node_exporter exists
+  become: true
+  user:
+    name: "{{ node_exporter_user }}"
+    groups: "{{ node_exporter_group }}"
+    createhome: false
+    home: /dev/null
+    shell: /usr/sbin/nologin
+    system: true
+    state: present
+  when: node_exporter_should_install
+
+- name: Fetch node_exporter binary
+  get_url:
+    url: "https://github.com/prometheus/node_exporter/releases/download/\
+      v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.\
+      {{ ansible_system | lower }}-{{ node_exporter_binary_arch }}.tar.gz"
+    dest: "/tmp/node_exporter-{{ node_exporter_version }}.tar.gz"
+  register: node_exporter_fetch_binary_task
+  until: node_exporter_fetch_binary_task is succeeded
+  retries: 5
+  delay: 2
+  when: node_exporter_should_install
+
+- name: Unpack node_exporter binary
+  become: true
+  unarchive:
+    src: "/tmp/node_exporter-{{ node_exporter_version }}.tar.gz"
+    dest: "/tmp"
+    remote_src: true
+  when: node_exporter_should_install
+
+- name: Copy node_exporter binary to destination path
+  become: true
+  copy:
+    remote_src: true
+    src: "/tmp/node_exporter-{{ node_exporter_version }}.{{ ansible_system | lower }}-\
+      {{ node_exporter_binary_arch }}/node_exporter"
+    dest: "{{ node_exporter_dest }}/{{ node_exporter_exe }}"
+    owner: "{{ node_exporter_user }}"
+    group: "{{ node_exporter_group }}"
+    mode: 0755
+  when: node_exporter_should_install

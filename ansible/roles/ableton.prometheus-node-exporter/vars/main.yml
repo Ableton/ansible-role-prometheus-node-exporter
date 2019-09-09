@@ -8,6 +8,10 @@ node_exporter_install_from_package_manager:
 # Name of the node_exporter executable
 node_exporter_exe: "node_exporter"
 
+# Location to install node_exporter to. Only relevant when installing from a binary
+# (see node_exporter_install_from_binary in defaults/main.yml).
+node_exporter_dest: "/usr/local/bin"
+
 # Service identifier (used by macOS)
 node_exporter_ident: "io.prometheus.node_exporter"
 
