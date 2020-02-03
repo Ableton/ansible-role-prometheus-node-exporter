@@ -22,19 +22,17 @@
     src: "{{ role_path }}/templates/{{ node_exporter_ident }}.plist.j2"
     dest: "{{ node_exporter_plist }}"
 
-- name: See if node_exporter service is running
+- name: Load node_exporter service
+  become: true
+  command: "launchctl load {{ node_exporter_plist }}"
+  changed_when: false
+  register: node_exporter_load
+
+- name: Check if node_exporter service is running
   become: true
   command: "launchctl list {{ node_exporter_ident }}"
   changed_when: false
-  failed_when: false
   register: node_exporter_list
-
-- name: Ensure node_exporter service is loaded
-  become: true
-  command: "launchctl load {{ node_exporter_plist }}"
-  register: node_exporter_load
-  # launchctl will print "<service ident>: service already loaded" if the service is
-  # already loaded, but nothing if it was not loaded beforehand. Both cases return 0
-  # as the status code, so we look at the output to see if the system state has changed.
-  changed_when: node_exporter_load.stdout == ""
-  when: node_exporter_list.rc != 0 or not node_exporter_list.stdout.find('"PID" =')
+  failed_when: node_exporter_list.rc != 0 or '"PID" =' not in node_exporter_list.stdout
+  when: "'service already loaded' not in node_exporter_load.stderr"
+  delay: 1
