@@ -75,6 +75,7 @@
     src: "/tmp/node_exporter-{{ node_exporter_version }}.tar.gz"
     dest: "/tmp"
     remote_src: true
+    mode: "0755"
   when: node_exporter_should_install
 
 - name: Copy node_exporter binary to destination path

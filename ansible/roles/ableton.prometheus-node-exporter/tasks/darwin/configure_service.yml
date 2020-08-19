@@ -21,6 +21,7 @@
   template:
     src: "{{ role_path }}/templates/{{ node_exporter_ident }}.plist.j2"
     dest: "{{ node_exporter_plist }}"
+    mode: "0644"
 
 - name: Load node_exporter service
   become: true
