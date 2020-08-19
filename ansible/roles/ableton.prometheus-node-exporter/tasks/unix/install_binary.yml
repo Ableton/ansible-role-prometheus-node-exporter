@@ -86,5 +86,5 @@
     dest: "{{ node_exporter_dest }}/{{ node_exporter_exe }}"
     owner: "{{ node_exporter_user }}"
     group: "{{ node_exporter_group }}"
-    mode: 0755
+    mode: "0755"
   when: node_exporter_should_install
