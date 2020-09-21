@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: prometheus_node_exporter
   author: Nik Reiman
   description: Installs the Promotheus node exporter service
   company: Ableton AG
