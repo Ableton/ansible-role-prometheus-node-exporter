@@ -1,5 +1,17 @@
 ---
+- name: Initialize homebrew_install_options fact
+  set_fact:
+    homebrew_install_options: ""
+
+- name: Set homebrew install options
+  set_fact:
+    # Ansible will add the "--" to these options for us
+    homebrew_install_options:
+      - "build-from-source"
+  when: ansible_distribution_version is version_compare('10.14', '<')
+
 - name: Install node_exporter package
   homebrew:
     name: "node_exporter"
+    install_options: "{{ homebrew_install_options }}"
     state: present
