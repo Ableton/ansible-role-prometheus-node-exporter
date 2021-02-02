@@ -22,13 +22,27 @@
     src: "{{ role_path }}/templates/{{ node_exporter_ident }}.plist.j2"
     dest: "{{ node_exporter_plist }}"
     mode: "0644"
+  register: node_exporter_plist_template
 
-- name: Load node_exporter service
-  become: true
-  command: "launchctl load {{ node_exporter_plist }}"
+- name: See if node_exporter service exists
+  command: "launchctl list {{ node_exporter_ident }}"
   changed_when: false
-  register: node_exporter_load
+  ignore_errors: true
+  register: node_exporter_service_list
 
+- name: Get current UID
+  command: "id -u"
+  changed_when: false
+  register: uid
+
+- name: Unload node_exporter service if template file was changed
+  become: true
+  command: "launchctl bootout gui/{{ uid.stdout }} {{ node_exporter_plist }}"
+  changed_when: false
+  when: node_exporter_plist_template is changed and node_exporter_service_list is success
+
+# The launchctl bootstrap command will fail if the service is already running, so we
+# check to see if the service is running before attempting to start it.
 - name: Check if node_exporter service is running
   command: "pgrep node_exporter"
   failed_when: false
@@ -37,7 +51,7 @@
 
 - name: Load node_exporter service
   become: true
-  command: "launchctl load {{ node_exporter_plist }}"
+  command: "launchctl bootstrap gui/{{ uid.stdout }} {{ node_exporter_plist }}"
   register: node_exporter_load
   when: node_exporter_pgrep.rc != 0
 
