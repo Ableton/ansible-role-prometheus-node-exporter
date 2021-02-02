@@ -30,10 +30,21 @@
   register: node_exporter_load
 
 - name: Check if node_exporter service is running
-  become: true
-  command: "launchctl list {{ node_exporter_ident }}"
+  command: "pgrep node_exporter"
+  failed_when: false
   changed_when: false
-  register: node_exporter_list
-  failed_when: node_exporter_list.rc != 0 or '"PID" =' not in node_exporter_list.stdout
-  when: "'service already loaded' not in node_exporter_load.stderr"
-  delay: 1
+  register: node_exporter_pgrep
+
+- name: Load node_exporter service
+  become: true
+  command: "launchctl load {{ node_exporter_plist }}"
+  register: node_exporter_load
+  when: node_exporter_pgrep.rc != 0
+
+- name: Assert that node_exporter service is running
+  # Normally we'd want to use `launchctl list` for this, but it has a nasty habit of
+  # randomly not returning the PID in its output, which makes it hard for us to see if the
+  # service is running.
+  command: "pgrep node_exporter"
+  changed_when: false
+  retries: 3
