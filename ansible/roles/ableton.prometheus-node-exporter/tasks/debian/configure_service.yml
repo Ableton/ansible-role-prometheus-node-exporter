@@ -11,7 +11,7 @@
   when: not node_exporter_install_from_binary
 
 - name: Get systemd version
-  command: systemctl --version  # noqa 303
+  command: systemctl --version  # noqa command-instead-of-module
   changed_when: false
   check_mode: false
   register: systemd_version
