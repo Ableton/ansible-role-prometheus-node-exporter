@@ -24,8 +24,6 @@ galaxy_info:
         - all
     - name: Windows
       versions:
-        - 7
-        - 8
         - 8.1
         - 10
 
