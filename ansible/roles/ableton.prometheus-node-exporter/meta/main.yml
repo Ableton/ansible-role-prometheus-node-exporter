@@ -1,15 +1,16 @@
 ---
 galaxy_info:
-  role_name: prometheus_node_exporter
   author: ableton
-  description: Installs the Promotheus node exporter service
   company: Ableton AG
-
-  license: BSD
-
-  min_ansible_version: 1.2
-
+  description: Installs the Promotheus node exporter service
   github_branch: master
+  license: BSD
+  min_ansible_version: 1.2
+  role_name: prometheus_node_exporter
+
+  galaxy_tags:
+    - metrics
+    - prometheus
 
   platforms:
     - name: Debian
@@ -27,9 +28,5 @@ galaxy_info:
         - 8
         - 8.1
         - 10
-
-  galaxy_tags:
-    - metrics
-    - prometheus
 
 dependencies: []
