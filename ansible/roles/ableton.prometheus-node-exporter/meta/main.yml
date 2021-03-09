@@ -5,7 +5,7 @@ galaxy_info:
   description: Installs the Promotheus node exporter service
   github_branch: master
   license: BSD
-  min_ansible_version: 1.2
+  min_ansible_version: 2.10
   role_name: prometheus_node_exporter
 
   galaxy_tags:
