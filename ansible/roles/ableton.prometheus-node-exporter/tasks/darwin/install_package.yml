@@ -10,6 +10,15 @@
       - "build-from-source"
   when: ansible_distribution_version is version_compare('10.14', '<')
 
+# This package must be manually installed for macOS <10.14, or else brew will attempt to
+# install it from a bottle and inevitably fail.
+- name: Install node_exporter dependencies
+  homebrew:
+    name: "go"
+    install_options: "{{ homebrew_install_options }}"
+    state: present
+  when: ansible_distribution_version is version_compare('10.14', '<')
+
 - name: Install node_exporter package
   homebrew:
     name: "node_exporter"
