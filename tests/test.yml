@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - ableton.prometheus-node-exporter
+    - ableton.prometheus_node_exporter
