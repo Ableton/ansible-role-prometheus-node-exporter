@@ -35,7 +35,7 @@
   changed_when: false
   register: uid
 
-- name: Unload node_exporter service if template file was changed
+- name: Unload node_exporter service if template file was changed  # noqa: no-handler
   become: true
   command: "launchctl bootout gui/{{ uid.stdout }} {{ node_exporter_plist }}"
   changed_when: false
