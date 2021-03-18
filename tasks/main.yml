@@ -5,7 +5,8 @@
 - include_tasks: "windows/install-binary.yml"
   when: node_exporter_install_from_binary and ansible_os_family == "Windows"
 
-- include_tasks: "{{ ansible_os_family | lower }}/install-package.yml"
+- include_tasks: "{{ ansible_os_family | lower }}\
+    /install-package-{{ ansible_pkg_mgr }}.yml"
   when: >
     ansible_os_family in node_exporter_install_from_package_manager and
     not node_exporter_install_from_binary
