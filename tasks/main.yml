@@ -1,11 +1,11 @@
 ---
-- include_tasks: "unix/install_binary.yml"
+- include_tasks: "unix/install-binary.yml"
   when: node_exporter_install_from_binary and ansible_os_family != "Windows"
 
-- include_tasks: "windows/install_binary.yml"
+- include_tasks: "windows/install-binary.yml"
   when: node_exporter_install_from_binary and ansible_os_family == "Windows"
 
-- include_tasks: "{{ ansible_os_family | lower }}/install_package.yml"
+- include_tasks: "{{ ansible_os_family | lower }}/install-package.yml"
   when: >
     ansible_os_family in node_exporter_install_from_package_manager and
     not node_exporter_install_from_binary
@@ -17,4 +17,4 @@
     ansible_os_family not in node_exporter_install_from_package_manager and
     not node_exporter_install_from_binary
 
-- include_tasks: "{{ ansible_os_family | lower }}/configure_service.yml"
+- include_tasks: "{{ ansible_os_family | lower }}/configure-service.yml"
