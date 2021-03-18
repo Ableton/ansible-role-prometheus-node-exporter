@@ -7,16 +7,7 @@
 
 - include_tasks: "{{ ansible_os_family | lower }}\
     /install-package-{{ ansible_pkg_mgr }}.yml"
-  when: >
-    ansible_os_family in node_exporter_install_from_package_manager and
-    not node_exporter_install_from_binary
-
-- name: Fail for incompatible system types
-  fail:
-    msg: "Installation of node_exporter is unavailable on {{ ansible_os_family }}"
-  when: >
-    ansible_os_family not in node_exporter_install_from_package_manager and
-    not node_exporter_install_from_binary
+  when: not node_exporter_install_from_binary
 
 - include_tasks: "{{ ansible_os_family | lower }}\
     /configure-service-{{ ansible_service_mgr }}.yml"

@@ -1,10 +1,4 @@
 ---
-# List of operating systems where node_exporter can be installed from a package manager.
-node_exporter_install_from_package_manager:
-  - Darwin
-  - Debian
-  - Windows
-
 # Name of the node_exporter executable
 node_exporter_exe: "node_exporter"
 
