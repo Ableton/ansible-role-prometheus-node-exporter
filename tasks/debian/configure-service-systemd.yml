@@ -24,7 +24,7 @@
 - name: Ensure that the node_exporter systemd service file exists
   become: true
   template:
-    src: "{{ role_path }}/templates/node_exporter.service.j2"
+    src: "node_exporter.service.j2"
     dest: "/etc/systemd/system/node_exporter.service"
     owner: root
     group: root

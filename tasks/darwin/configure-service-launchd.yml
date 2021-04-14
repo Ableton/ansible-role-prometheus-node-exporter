@@ -25,7 +25,7 @@
 - name: Ensure LaunchDaemon plist file exists
   become: true
   template:
-    src: "{{ role_path }}/templates/{{ node_exporter_ident }}.plist.j2"
+    src: "{{ node_exporter_ident }}.plist.j2"
     dest: "{{ node_exporter_plist }}"
     mode: "0644"
   register: node_exporter_plist_template
