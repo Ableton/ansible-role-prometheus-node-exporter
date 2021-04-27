@@ -45,7 +45,9 @@
   become: true
   command: "launchctl bootout gui/{{ uid.stdout }} {{ node_exporter_plist }}"
   changed_when: false
-  when: node_exporter_plist_template is changed and node_exporter_service_list is success
+  when: >
+    node_exporter_plist_template is changed and
+    node_exporter_service_list is succeeded
 
 # The launchctl bootstrap command will fail if the service is already running, so we
 # check to see if the service is running before attempting to start it.
