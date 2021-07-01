@@ -5,3 +5,9 @@
     daemon_reload: true
     name: node_exporter
     state: restarted
+
+- name: sysvinit restart node_exporter
+  become: true
+  sysvinit:
+    name: node_exporter
+    state: restarted

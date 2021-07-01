@@ -1,0 +1,45 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          node_exporter
+# Required-Start:    $all
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: Prometheus node_exporter service
+### END INIT INFO
+
+RETVAL=0
+
+start() {
+  /usr/bin/daemon --name=node_exporter --inherit -- \
+    {{ node_exporter_dest }}/{{ node_exporter_exe }} \
+    {{ node_exporter_args | join(' ') }} \
+    --web.listen-address=:{{ node_exporter_port }}
+  RETVAL=$?
+}
+
+stop() {
+  /usr/bin/pkill -F {{ node_exporter_pid_file }}
+  RETVAL=$?
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    [ -f {{ node_exporter_pid_file }} ]
+    RETVAL=$?
+    ;;
+  restart)
+    stop && start
+    ;;
+  *)
+    echo "Usage: {start|stop|restart|status}"
+    exit 1
+esac
+
+exit $RETVAL

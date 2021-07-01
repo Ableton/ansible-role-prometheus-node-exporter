@@ -9,5 +9,8 @@ node_exporter_dest: "/usr/local/bin"
 # Service identifier (used by macOS)
 node_exporter_ident: "io.prometheus.node_exporter"
 
+# PID file for node_exporter (only used by SysV init)
+node_exporter_pid_file: "/var/run/node_exporter.pid"
+
 # Location to install the launchctl plist file (used by macOS)
 node_exporter_plist: "/Library/LaunchDaemons/{{ node_exporter_ident }}.plist"
