@@ -9,15 +9,15 @@ node_exporter_port: 9100
 # manager. This option is not supported on all system types.
 node_exporter_install_from_binary: false
 
-# Binary architecture to fetch when downloading node_exporter binary. Only relevant when
-# node_exporter_install_from_binary is true.
+# Binary architecture to fetch when downloading the node_exporter binary. Only relevant
+# when node_exporter_install_from_binary is true.
 node_exporter_binary_arch: "amd64"
 
-# User to run node_exporter as. Only relevant when node_exporter_install_from_binary is
-# true.
+# Group for the node_exporter_user user. Only relevant when
+# node_exporter_install_from_binary is true.
 node_exporter_group: "node_exporter"
 
-# Group to run node_exporter as. Only relevant when node_exporter_install_from_binary is
+# User to run node_exporter as. Only relevant when node_exporter_install_from_binary is
 # true.
 node_exporter_user: "node_exporter"
 
