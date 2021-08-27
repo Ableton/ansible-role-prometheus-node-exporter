@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    node_exporter_args:
+      - "--collector.arp"
+      - "--collector.cpu"
+    node_exporter_port: 9999
+  roles:
+    - ansible-role-prometheus-node-exporter
