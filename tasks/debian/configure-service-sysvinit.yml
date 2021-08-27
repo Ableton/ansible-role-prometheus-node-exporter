@@ -1,5 +1,5 @@
 ---
-- name: Ensure that the node_exporter systemd service file exists
+- name: Ensure that the node_exporter SysVinit service file exists
   become: true
   template:
     src: "node_exporter-sysvinit.sh.j2"
