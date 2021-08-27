@@ -2,8 +2,8 @@
 - name: Ensure that the node_exporter SysVinit service file exists
   become: true
   template:
-    src: "node_exporter-sysvinit.sh.j2"
-    dest: "/etc/init.d/node_exporter"
+    src: "prometheus-node-exporter-sysvinit.sh.j2"
+    dest: "/etc/init.d/prometheus-node-exporter"
     owner: "root"
     group: "root"
     mode: "0755"
@@ -13,7 +13,7 @@
 - name: Ensure Node Exporter service is running and enabled on boot
   become: true
   sysvinit:
-    name: "node_exporter"
+    name: "prometheus-node-exporter"
     enabled: true
     state: started
   when: node_exporter_install_from_binary

@@ -13,8 +13,8 @@
 - name: Ensure that the node_exporter systemd service file exists
   become: true
   template:
-    src: "node_exporter.service.j2"
-    dest: "/etc/systemd/system/node_exporter.service"
+    src: "prometheus-node-exporter.service.j2"
+    dest: "/etc/systemd/system/prometheus-node-exporter.service"
     owner: root
     group: root
     mode: "0644"
@@ -25,7 +25,7 @@
   become: true
   systemd:
     daemon_reload: true
-    name: "node_exporter"
+    name: "prometheus-node-exporter"
     enabled: true
     state: started
   when: node_exporter_install_from_binary
