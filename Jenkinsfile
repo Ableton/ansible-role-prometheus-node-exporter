@@ -27,6 +27,7 @@ devToolsProject.run(
         }
       },
       black: { data.venv.run('black --check .') },
+      flake8: { data.venv.run('flake8 -v') },
       groovylint: { groovylint.check('./Jenkinsfile') },
       molecule: { data.venv.run('molecule --debug test --all') },
     )
