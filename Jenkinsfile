@@ -7,6 +7,7 @@ devToolsProject.run(
   setup: { data ->
     Object venv = virtualenv.create('python3.8')
     venv.run('pip install -r requirements-dev.txt')
+    venv.run('ansible-galaxy install --force --role-file requirements.yml')
     data['venv'] = venv
   },
   test: { data ->
@@ -15,7 +16,7 @@ devToolsProject.run(
         String stdout = data.venv.run(
           label: 'ansible-lint',
           returnStdout: true,
-          script: 'ansible-lint -c .ansible-lint.yml',
+          script: 'ansible-lint --offline -c .ansible-lint.yml',
         )
 
         // If only warnings are found, ansible-lint will exit with code 0 but still write
