@@ -26,4 +26,5 @@ galaxy_info:
         - 8.1
         - 10
 
-dependencies: []
+dependencies:
+  - ableton.pkg_mgr_path
