@@ -1,13 +1,7 @@
 ---
-- name: Set node_exporter_exe to homebrew's installation path
+- name: Set node_exporter_exe fact
   set_fact:
-    node_exporter_exe: "/usr/local/bin/node_exporter"
-  when: ansible_pkg_mgr == "homebrew"
-
-- name: Set node_exporter_exe to MacPorts' installation path
-  set_fact:
-    node_exporter_exe: "/opt/local/bin/node_exporter"
-  when: ansible_pkg_mgr == "macports"
+    node_exporter_exe: "{{ ansible_pkg_mgr_bin }}/node_exporter"
 
 - name: Initialize fact for node_exporter extra arguments
   set_fact:
