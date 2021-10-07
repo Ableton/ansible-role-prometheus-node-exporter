@@ -3,4 +3,4 @@ roles:
   - src: https://github.com/Ableton/ansible-role-pkg-mgr-path
     scm: git
     name: ableton.pkg_mgr_path
-    version: 0.0.1
+    version: 0.0.2
