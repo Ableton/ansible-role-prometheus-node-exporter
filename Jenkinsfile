@@ -33,7 +33,7 @@ devToolsProject.run(
       },
       black: { data.venv.run('black --check .') },
       flake8: { data.venv.run('flake8 -v') },
-      groovylint: { groovylint.check('./Jenkinsfile') },
+      groovylint: { groovylint.checkSingleFile(path: './Jenkinsfile') },
       molecule: {
         withEnv(["ANSIBLE_ROLES_PATH=${data.rolesPath}"]) {
           data.venv.run('molecule --debug test --all')
