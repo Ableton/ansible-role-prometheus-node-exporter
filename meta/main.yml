@@ -23,8 +23,7 @@ galaxy_info:
         - all
     - name: Windows
       versions:
-        - 8.1
-        - 10
+        - all
 
 dependencies:
   - ableton.pkg_mgr_path
