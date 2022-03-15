@@ -63,6 +63,7 @@
       v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.\
       {{ ansible_system | lower }}-{{ node_exporter_binary_arch }}.tar.gz"
     dest: "/tmp/node_exporter-{{ node_exporter_version }}.tar.gz"
+    mode: "0644"
   register: node_exporter_fetch_binary_task
   until: node_exporter_fetch_binary_task is succeeded
   retries: 5
