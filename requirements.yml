@@ -1,4 +1,8 @@
 ---
+collections:
+  - name: community.docker
+    version: 3.0.0-a2
+
 roles:
   - src: https://github.com/Ableton/ansible-role-pkg-mgr-path
     scm: git
