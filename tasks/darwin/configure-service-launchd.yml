@@ -1,4 +1,11 @@
 ---
+- name: Ensure that logfile directory exists
+  file:
+    path: "{{ node_exporter_log_path_mac }}"
+    owner: "{{ node_exporter_user }}"
+    mode: "0755"
+    state: directory
+
 - name: Set node_exporter_exe fact
   set_fact:
     node_exporter_exe: "{{ ansible_pkg_mgr_bin }}/node_exporter"
