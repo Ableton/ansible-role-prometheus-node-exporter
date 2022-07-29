@@ -27,10 +27,10 @@
   <key>RunAtLoad</key>
   <true/>
   <key>StandardErrorPath</key>
-  <string>/tmp/{{ node_exporter_ident }}.stderr</string>
+  <string>{{ node_exporter_log_path_mac }}/{{ node_exporter_ident }}.stderr</string>
   <key>StandardOutPath</key>
-  <string>/tmp/{{ node_exporter_ident }}.stdout</string>
+  <string>{{ node_exporter_log_path_mac }}/{{ node_exporter_ident }}.stdout</string>
   <key>UserName</key>
-  <string>{{ ansible_user }}</string>
+  <string>{{ node_exporter_user }}</string>
 </dict>
 </plist>

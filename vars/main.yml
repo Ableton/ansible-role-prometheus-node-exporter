@@ -9,6 +9,9 @@ node_exporter_dest: "/usr/local/bin"
 # Service identifier (used by macOS)
 node_exporter_ident: "io.prometheus.node_exporter"
 
+# Where to store logfiles (for stderr/stdout). Used on Mac only.
+node_exporter_log_path_mac: "/Users/{{ node_exporter_user }}/Library/Logs/node_exporter"
+
 # PID file for node_exporter (only used by SysV init)
 node_exporter_pid_file: "/var/run/node_exporter.pid"
 
