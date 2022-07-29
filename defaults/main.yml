@@ -22,7 +22,7 @@ node_exporter_group: "node_exporter"
 node_exporter_process_type_mac: "Background"
 
 # User to run node_exporter as. Only relevant when node_exporter_install_from_binary is
-# true.
+# true or on macOS systems.
 node_exporter_user: "node_exporter"
 
 # Version of node_exporter to install. Because some package managers (like homebrew) don't
