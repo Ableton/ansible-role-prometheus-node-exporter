@@ -1,6 +1,6 @@
 ---
 - name: Install node_exporter package
   become: true
-  macports:
+  community.general.macports:
     name: "node_exporter"
     state: present
