@@ -1,13 +1,13 @@
 ---
 - name: Install prometheus-node-exporter package
   become: true
-  apt:
+  ansible.builtin.apt:
     name: prometheus-node-exporter
     state: present
 
 - name: Set node_exporter args for apt package installation
   become: true
-  copy:
+  ansible.builtin.copy:
     dest: "/etc/default/prometheus-node-exporter"
     content: "ARGS='{{ node_exporter_args | join(' ') }} \
       --web.listen-address=:{{ node_exporter_port }}'"

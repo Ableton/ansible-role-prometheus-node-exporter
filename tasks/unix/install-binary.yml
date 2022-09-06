@@ -1,15 +1,15 @@
 ---
 - name: Set fact to determine if node_exporter should be installed
-  set_fact:
+  ansible.builtin.set_fact:
     node_exporter_should_install: false
 
 - name: See if node_exporter exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ node_exporter_dest }}/{{ node_exporter_exe }}"
   register: node_exporter_exists
 
 - name: Install node_exporter if it does not exist
-  set_fact:
+  ansible.builtin.set_fact:
     node_exporter_should_install: true
   when: not node_exporter_exists.stat.exists
 
@@ -19,7 +19,7 @@
 #  build date:       20190604-16:41:18
 #  go version:       go1.12.5
 - name: Get node_exporter version
-  shell: |
+  ansible.builtin.shell: |
     set -o pipefail
     {{ node_exporter_dest }}/{{ node_exporter_exe }} --version 2>&1 |
     head -1 |
@@ -31,7 +31,7 @@
   when: node_exporter_exists.stat.exists
 
 - name: Install node_exporter if the version does not match
-  set_fact:
+  ansible.builtin.set_fact:
     node_exporter_should_install: true
   when: >
     node_exporter_exists.stat.exists and
@@ -39,7 +39,7 @@
 
 - name: Ensure that the group for node_exporter exists
   become: true
-  group:
+  ansible.builtin.group:
     name: "{{ node_exporter_group }}"
     system: true
     state: present
@@ -47,7 +47,7 @@
 
 - name: Ensure that the user for node_exporter exists
   become: true
-  user:
+  ansible.builtin.user:
     name: "{{ node_exporter_user }}"
     groups: "{{ node_exporter_group }}"
     createhome: false
@@ -58,7 +58,7 @@
   when: node_exporter_should_install
 
 - name: Fetch node_exporter binary
-  get_url:
+  ansible.builtin.get_url:
     url: "https://github.com/prometheus/node_exporter/releases/download/\
       v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.\
       {{ ansible_system | lower }}-{{ node_exporter_binary_arch }}.tar.gz"
@@ -72,7 +72,7 @@
 
 - name: Unpack node_exporter binary
   become: true
-  unarchive:
+  ansible.builtin.unarchive:
     src: "/tmp/node_exporter-{{ node_exporter_version }}.tar.gz"
     dest: "/tmp"
     remote_src: true
@@ -81,7 +81,7 @@
 
 - name: Copy node_exporter binary to destination path
   become: true
-  copy:
+  ansible.builtin.copy:
     remote_src: true
     src: "/tmp/node_exporter-{{ node_exporter_version }}.{{ ansible_system | lower }}-\
       {{ node_exporter_binary_arch }}/node_exporter"

@@ -1,4 +1,4 @@
 ---
 - name: Fail because Windows binary installation is not yet supported
-  fail:
+  ansible.builtin.fail:
     msg: "Installing node_exporter from binary zipfile is not supported on Windows"

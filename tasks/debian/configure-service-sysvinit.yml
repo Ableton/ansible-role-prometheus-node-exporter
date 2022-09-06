@@ -1,7 +1,7 @@
 ---
 - name: Ensure that the node_exporter SysVinit service file exists
   become: true
-  template:
+  ansible.builtin.template:
     src: "prometheus-node-exporter-sysvinit.sh.j2"
     dest: "/etc/init.d/prometheus-node-exporter"
     owner: "root"
@@ -12,7 +12,7 @@
 
 - name: Ensure Node Exporter service is running and enabled on boot
   become: true
-  sysvinit:
+  ansible.builtin.sysvinit:
     name: "prometheus-node-exporter"
     enabled: true
     state: started
