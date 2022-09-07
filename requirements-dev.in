@@ -1,3 +1,4 @@
+ansible-core
 ansible-lint
 black
 flake8
