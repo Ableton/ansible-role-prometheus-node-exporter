@@ -23,6 +23,11 @@ stop() {
   RETVAL=$?
 }
 
+status() {
+  /usr/bin/pgrep -F {{ node_exporter_pid_file }}
+  RETVAL=$?
+}
+
 case "$1" in
   start)
     start
@@ -31,8 +36,7 @@ case "$1" in
     stop
     ;;
   status)
-    [ -f {{ node_exporter_pid_file }} ]
-    RETVAL=$?
+    status
     ;;
   restart)
     stop && start
