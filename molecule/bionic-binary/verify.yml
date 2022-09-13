@@ -1,0 +1,55 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Stat node_exporter binary
+      ansible.builtin.stat:
+        path: "/usr/local/bin/node_exporter"
+      register: node_exporter_bin
+
+    - name: Assert that node_exporter was installed correctly
+      ansible.builtin.assert:
+        that:
+          - node_exporter_bin.stat.exists
+          - node_exporter_bin.stat.isreg
+          - node_exporter_bin.stat.mode == "0755"
+
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
+    - name: Assert that service was installed correctly
+      ansible.builtin.assert:
+        that:
+          - "'prometheus-node-exporter' in {{ ansible_facts.services | flatten }}"
+          - ansible_facts.services['prometheus-node-exporter'].state == 'running'
+
+    - name: Slurp node_exporter PID file
+      ansible.builtin.slurp:
+        src: "/var/run/node_exporter.pid"
+      register: node_exporter_pid
+
+    - name: Set fact for node_exporter_args_expected_list
+      ansible.builtin.set_fact:
+        node_exporter_args_expected_list:
+          - "{{ node_exporter_pid.content | b64decode | trim }}"
+          - "/usr/bin/daemon"
+          - "--name=node_exporter"
+          - "--inherit"
+          - "--"
+          - "/usr/local/bin/node_exporter"
+          - "--collector.arp"
+          - "--collector.cpu"
+          - "--web.listen-address=:9999"
+
+    - name: Set fact for node_exporter_args_expected
+      ansible.builtin.set_fact:
+        node_exporter_args_expected: "{{ node_exporter_args_expected_list | join(' ') }}"
+
+    - name: Get full node_exporter process command line
+      ansible.builtin.command: "pgrep -a -F /var/run/node_exporter.pid"
+      changed_when: false
+      register: node_exporter_args
+
+    - name: Assert that node_exporter service is running with expected arguments
+      ansible.builtin.assert:
+        that: node_exporter_args.stdout == node_exporter_args_expected
