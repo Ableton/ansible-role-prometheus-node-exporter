@@ -1,12 +1,12 @@
 ---
-- name: systemd restart node_exporter
+- name: Restart node_exporter for systemd
   become: true
   ansible.builtin.systemd:
     daemon_reload: true
     name: "prometheus-node-exporter"
     state: restarted
 
-- name: sysvinit restart node_exporter
+- name: Restart node_exporter for SysvInit
   become: true
   ansible.builtin.sysvinit:
     name: "prometheus-node-exporter"
