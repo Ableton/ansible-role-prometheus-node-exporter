@@ -8,7 +8,7 @@
     group: "root"
     mode: "0755"
   when: node_exporter_install_from_binary
-  notify: sysvinit restart node_exporter
+  notify: Restart node_exporter for SysvInit
 
 - name: Ensure Node Exporter service is running and enabled on boot
   become: true
