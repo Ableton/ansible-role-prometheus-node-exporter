@@ -14,6 +14,3 @@ node_exporter_log_path_mac: "/Users/{{ node_exporter_user }}/Library/Logs/node_e
 
 # PID file for node_exporter (only used by SysV init)
 node_exporter_pid_file: "/var/run/node_exporter.pid"
-
-# Location to install the launchctl plist file (used by macOS)
-node_exporter_launchd_plist: "/Library/LaunchDaemons/{{ node_exporter_ident }}.plist"
