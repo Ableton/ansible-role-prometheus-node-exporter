@@ -27,9 +27,9 @@
   become: true
   ansible.builtin.template:
     src: "{{ node_exporter_ident }}.plist.j2"
-    dest: "{{ node_exporter_plist }}"
+    dest: "{{ node_exporter_launchd_plist }}"
     mode: "0644"
-  register: node_exporter_plist_template
+  register: node_exporter_launchd_plist_template
 
 - name: See if node_exporter service exists
   ansible.builtin.command: "launchctl list {{ node_exporter_ident }}"
@@ -45,10 +45,10 @@
 - name: Unload node_exporter service if template file was changed  # noqa: no-handler
   become: true
   ansible.builtin.command: >
-    launchctl bootout gui/{{ uid.stdout }} {{ node_exporter_plist }}
+    launchctl bootout gui/{{ uid.stdout }} {{ node_exporter_launchd_plist }}
   changed_when: false
   when: >
-    node_exporter_plist_template is changed and
+    node_exporter_launchd_plist_template is changed and
     node_exporter_service_list is succeeded
 
 # The launchctl bootstrap command will fail if the service is already running, so we
@@ -62,7 +62,7 @@
 - name: Load node_exporter service
   become: true
   ansible.builtin.command: >
-    launchctl bootstrap gui/{{ uid.stdout }} {{ node_exporter_plist }}
+    launchctl bootstrap gui/{{ uid.stdout }} {{ node_exporter_launchd_plist }}
   register: node_exporter_load
   when: node_exporter_pgrep.rc != 0
 
