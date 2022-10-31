@@ -3,6 +3,7 @@
   become: true
   ansible.builtin.apt:
     name: prometheus-node-exporter
+    install_recommends: false
     state: present
 
 - name: Set node_exporter args for apt package installation
