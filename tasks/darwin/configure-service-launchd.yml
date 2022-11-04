@@ -37,8 +37,8 @@
   ignore_errors: true
   register: node_exporter_service_list
 
-- name: Get current UID
-  ansible.builtin.command: "id -u"
+- name: Get UID for node_exporter user
+  ansible.builtin.command: "id -u {{ node_exporter_user }}"
   changed_when: false
   register: uid
 
