@@ -1,37 +1,39 @@
 ---
-- name: Ensure that the group for node_exporter exists
-  become: true
-  ansible.builtin.group:
-    name: "{{ node_exporter_group }}"
-    system: true
-    state: present
-  when: node_exporter_create_user and ansible_os_family != "Windows"
-
-- name: Ensure that the user for node_exporter exists
-  become: true
-  ansible.builtin.user:
-    name: "{{ node_exporter_user }}"
-    groups: "{{ node_exporter_group }}"
-    createhome: false
-    home: "/dev/null"
-    shell: "/usr/sbin/nologin"
-    system: true
-    state: present
-  when: node_exporter_create_user and ansible_os_family != "Windows"
-
-- name: Include tasks to install binary on Unix hosts
-  ansible.builtin.import_tasks: "unix/install-binary.yml"
-  when: node_exporter_install_from_binary and ansible_os_family != "Windows"
-
-- name: Include OS-specific tasks to install via package manager
-  ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}\
-    /install-package-{{ ansible_pkg_mgr }}.yml"
-  when: ansible_os_family != "Windows" and not node_exporter_install_from_binary
-
-- name: Include OS-specific tasks to configure service
-  ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}\
-    /configure-service-{{ ansible_service_mgr }}.yml"
+- name: Install node_exporter for Unix hosts
   when: ansible_os_family != "Windows"
+  block:
+    - name: Ensure that the group for node_exporter exists
+      become: true
+      ansible.builtin.group:
+        name: "{{ node_exporter_group }}"
+        system: true
+        state: present
+      when: node_exporter_create_user
+
+    - name: Ensure that the user for node_exporter exists
+      become: true
+      ansible.builtin.user:
+        name: "{{ node_exporter_user }}"
+        groups: "{{ node_exporter_group }}"
+        createhome: false
+        home: "/dev/null"
+        shell: "/usr/sbin/nologin"
+        system: true
+        state: present
+      when: node_exporter_create_user
+
+    - name: Include tasks to install binary on Unix hosts
+      ansible.builtin.import_tasks: "unix/install-binary.yml"
+      when: node_exporter_install_from_binary
+
+    - name: Include OS-specific tasks to install via package manager
+      ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}\
+        /install-package-{{ ansible_pkg_mgr }}.yml"
+      when: not node_exporter_install_from_binary
+
+    - name: Include OS-specific tasks to configure service
+      ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}\
+        /configure-service-{{ ansible_service_mgr }}.yml"
 
 - name: Install node_exporter for Windows hosts
   ansible.builtin.include_tasks: "windows/install.yml"
