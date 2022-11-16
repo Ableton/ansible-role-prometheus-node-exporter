@@ -2,6 +2,22 @@
 - name: Verify
   hosts: all
   tasks:
+    - name: Check if node_exporter_user was created
+      ansible.builtin.user:
+        name: "node_exporter"
+        groups: "node_exporter"
+        createhome: false
+        home: "/dev/null"
+        shell: "/usr/sbin/nologin"
+        system: true
+        state: present
+      check_mode: true
+      register: node_exporter_user_created
+
+    - name: Assert that node_exporter_user was created
+      ansible.builtin.assert:
+        that: node_exporter_user_created is not changed
+
     - name: Stat node_exporter binary
       ansible.builtin.stat:
         path: "/usr/local/bin/node_exporter"

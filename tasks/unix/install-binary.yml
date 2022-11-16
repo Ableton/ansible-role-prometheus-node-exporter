@@ -37,26 +37,6 @@
     node_exporter_exists.stat.exists and
     node_exporter_installed_version.stdout != node_exporter_version
 
-- name: Ensure that the group for node_exporter exists
-  become: true
-  ansible.builtin.group:
-    name: "{{ node_exporter_group }}"
-    system: true
-    state: present
-  when: node_exporter_should_install
-
-- name: Ensure that the user for node_exporter exists
-  become: true
-  ansible.builtin.user:
-    name: "{{ node_exporter_user }}"
-    groups: "{{ node_exporter_group }}"
-    createhome: false
-    home: "/dev/null"
-    shell: "/usr/sbin/nologin"
-    system: true
-    state: present
-  when: node_exporter_should_install
-
 - name: Fetch node_exporter binary
   ansible.builtin.get_url:
     url: "https://github.com/prometheus/node_exporter/releases/download/\

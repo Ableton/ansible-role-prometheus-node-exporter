@@ -1,4 +1,24 @@
 ---
+- name: Ensure that the group for node_exporter exists
+  become: true
+  ansible.builtin.group:
+    name: "{{ node_exporter_group }}"
+    system: true
+    state: present
+  when: node_exporter_create_user and ansible_os_family != "Windows"
+
+- name: Ensure that the user for node_exporter exists
+  become: true
+  ansible.builtin.user:
+    name: "{{ node_exporter_user }}"
+    groups: "{{ node_exporter_group }}"
+    createhome: false
+    home: "/dev/null"
+    shell: "/usr/sbin/nologin"
+    system: true
+    state: present
+  when: node_exporter_create_user and ansible_os_family != "Windows"
+
 - name: Include tasks to install binary on Unix hosts
   ansible.builtin.import_tasks: "unix/install-binary.yml"
   when: node_exporter_install_from_binary and ansible_os_family != "Windows"
