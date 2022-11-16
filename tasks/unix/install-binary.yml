@@ -51,8 +51,8 @@
     name: "{{ node_exporter_user }}"
     groups: "{{ node_exporter_group }}"
     createhome: false
-    home: /dev/null
-    shell: /usr/sbin/nologin
+    home: "/dev/null"
+    shell: "/usr/sbin/nologin"
     system: true
     state: present
   when: node_exporter_should_install
