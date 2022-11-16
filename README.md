@@ -34,9 +34,10 @@ The following role variables are used for `node_exporter`'s service configuratio
 
 - `node_exporter_args`: A list of arguments to pass to the `node_exporter` service, one
   argument per list item.
-- `node_exporter_group`: Group for the `node_exporter_user` user.
+- `node_exporter_group`: Group for the `node_exporter_user` user (only used on Unix
+  platforms).
 - `node_exporter_port`: Port to expose metrics on.
-- `node_exporter_user`: User to run `node_exporter` as.
+- `node_exporter_user`: User to run `node_exporter` as (only used on Unix platforms).
 
 The following variables are used when building `node_exporter` from sources.
 
