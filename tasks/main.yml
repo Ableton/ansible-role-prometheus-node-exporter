@@ -23,16 +23,16 @@
   ansible.builtin.import_tasks: "unix/install-binary.yml"
   when: node_exporter_install_from_binary and ansible_os_family != "Windows"
 
-- name: Include tasks to install binary on Windows hosts
-  ansible.builtin.import_tasks: "windows/install-binary.yml"
-  when: node_exporter_install_from_binary and ansible_os_family == "Windows"
-
 - name: Include OS-specific tasks to install via package manager
   ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}\
     /install-package-{{ ansible_pkg_mgr }}.yml"
-  when: not node_exporter_install_from_binary
+  when: ansible_os_family != "Windows" and not node_exporter_install_from_binary
 
 - name: Include OS-specific tasks to configure service
   ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}\
     /configure-service-{{ ansible_service_mgr }}.yml"
   when: ansible_os_family != "Windows"
+
+- name: Install node_exporter for Windows hosts
+  ansible.builtin.include_tasks: "windows/install.yml"
+  when: ansible_os_family == "Windows"

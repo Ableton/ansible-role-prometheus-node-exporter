@@ -1,0 +1,8 @@
+---
+- name: Include tasks to install binary on Windows hosts
+  ansible.builtin.import_tasks: "windows/install-binary.yml"
+  when: node_exporter_install_from_binary
+
+- name: Include tasks to install via package manager
+  ansible.builtin.include_tasks: "windows/install-package-{{ ansible_pkg_mgr }}.yml"
+  when: not node_exporter_install_from_binary
