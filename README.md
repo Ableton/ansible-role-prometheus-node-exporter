@@ -34,7 +34,9 @@ The following role variables are used for `node_exporter`'s service configuratio
 
 - `node_exporter_args`: A list of arguments to pass to the `node_exporter` service, one
   argument per list item.
+- `node_exporter_group`: Group for the `node_exporter_user` user.
 - `node_exporter_port`: Port to expose metrics on.
+- `node_exporter_user`: User to run `node_exporter` as.
 
 The following variables are used when building `node_exporter` from sources.
 
@@ -43,8 +45,6 @@ The following variables are used when building `node_exporter` from sources.
   system types (see the "Requirements" section above).
 - `node_exporter_binary_arch`: Binary architecture to fetch when downloading the
   `node_exporter` binary.
-- `node_exporter_group`: Group for the to run `node_exporter_user`.
-- `node_exporter_user`: User to run `node_exporter` as.
 - `node_exporter_version`: Version of node_exporter to install from source.
 
 The following variables are used on Windows:
