@@ -14,7 +14,7 @@ devToolsProject.run(
   },
   test: { data ->
     data.venv.inside {
-      parallel(failFast: false,
+      parallel(
         'ansible-lint': {
           sh(
             label: 'ansible-lint',
