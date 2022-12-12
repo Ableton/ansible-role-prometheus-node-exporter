@@ -6,6 +6,8 @@ host. If the target system has a package manager with the `node_exporter` packag
 this role installs the software that way. Otherwise, the software will be built from
 sources.
 
+On Windows, this role installs [`windows_exporter`][windows-exporter].
+
 Requirements
 ------------
 
@@ -92,3 +94,4 @@ This project is maintained by the following GitHub users:
 
 
 [node-exporter]: https://github.com/prometheus/node_exporter
+[windows-exporter]: https://github.com/prometheus-community/windows_exporter
