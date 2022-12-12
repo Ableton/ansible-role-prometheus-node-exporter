@@ -4,3 +4,4 @@
     name: prometheus-windows-exporter.install
     params: "/ListenPort:{{ node_exporter_port }}"
     state: present
+    version: "{{ windows_exporter_version }}"

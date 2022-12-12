@@ -47,6 +47,10 @@ The following variables are used when building `node_exporter` from sources.
 - `node_exporter_user`: User to run `node_exporter` as.
 - `node_exporter_version`: Version of node_exporter to install from source.
 
+The following variables are used on Windows:
+
+- `windows_exporter_version`: Version of windows_exporter to install using Chocolatey.
+
 See the [`defaults/main.yml`](defaults/main.yml) file for full documentation on required
 and optional role variables.
 
