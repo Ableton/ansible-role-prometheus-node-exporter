@@ -29,3 +29,6 @@ node_exporter_user: "node_exporter"
 # support pinning, and because others don't support the latest versions (like apt), this
 # variable is only relevant when node_exporter_install_from_binary is true.
 node_exporter_version: "1.4.0"
+
+# Version of windows_exporter to install using Chocolatey.
+windows_exporter_version: "0.20.0"

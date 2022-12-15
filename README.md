@@ -6,6 +6,8 @@ host. If the target system has a package manager with the `node_exporter` packag
 this role installs the software that way. Otherwise, the software will be built from
 sources.
 
+On Windows, this role installs [`windows_exporter`][windows-exporter].
+
 Requirements
 ------------
 
@@ -44,6 +46,10 @@ The following variables are used when building `node_exporter` from sources.
 - `node_exporter_group`: Group for the to run `node_exporter_user`.
 - `node_exporter_user`: User to run `node_exporter` as.
 - `node_exporter_version`: Version of node_exporter to install from source.
+
+The following variables are used on Windows:
+
+- `windows_exporter_version`: Version of windows_exporter to install using Chocolatey.
 
 See the [`defaults/main.yml`](defaults/main.yml) file for full documentation on required
 and optional role variables.
@@ -92,3 +98,4 @@ This project is maintained by the following GitHub users:
 
 
 [node-exporter]: https://github.com/prometheus/node_exporter
+[windows-exporter]: https://github.com/prometheus-community/windows_exporter
