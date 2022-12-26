@@ -16,7 +16,7 @@ ansible-lint==6.10.0
     # via -r requirements-dev.in
 arrow==1.2.3
     # via jinja2-time
-attrs==22.1.0
+attrs==22.2.0
     # via jsonschema
 binaryornot==0.4.4
     # via cookiecutter
@@ -128,7 +128,7 @@ ruamel-yaml==0.17.21
     # via ansible-lint
 ruamel-yaml-clib==0.2.7
     # via ruamel-yaml
-selinux==0.2.1
+selinux==0.3.0
     # via molecule-docker
 six==1.16.0
     # via python-dateutil
