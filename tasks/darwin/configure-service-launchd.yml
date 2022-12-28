@@ -23,13 +23,53 @@
   loop_control:
     loop_var: node_exporter_arg
 
-- name: Ensure LaunchDaemon plist file exists
+- name: Set fact for node_exporter_legacy_launchd_plist
+  ansible.builtin.set_fact:
+    node_exporter_legacy_launchd_plist: >-
+      /Library/LaunchDaemons/{{ node_exporter_ident }}.plist
+  when: "node_exporter_user != 'root'"
+
+- name: See if legacy node_exporter launchd plist file exists
+  ansible.builtin.stat:
+    path: "{{ node_exporter_legacy_launchd_plist }}"
+  register: node_exporter_legacy_launchd_plist_file
+
+- name: Unload and remove legacy launchd service
+  when: node_exporter_legacy_launchd_plist_file.stat.exists
+  block:
+    # TODO: Remove this suppression when ansible-lint learns to parse block conditions
+    # See: https://github.com/ansible/ansible-lint/issues/1894
+    - name: Unload legacy node_exporter service  # noqa no-changed-when
+      become: true
+      ansible.builtin.command: >
+        launchctl bootout gui/{{ uid.stdout }}
+        {{ node_exporter_legacy_launchd_plist }}
+      # The service doesn't necessarily have to be running
+      ignore_errors: true  # noqa ignore-errors
+
+    - name: Remove legacy node_exporter launchd plist file
+      become: true
+      ansible.builtin.file:
+        path: "{{ node_exporter_legacy_launchd_plist_file }}"
+        state: absent
+
+- name: Set fact for node_exporter_launchd_plist (root user)
+  ansible.builtin.set_fact:
+    node_exporter_launchd_plist: "/Library/LaunchDaemons/{{ node_exporter_ident }}.plist"
+  when: "node_exporter_user == 'root'"
+
+- name: Set fact for node_exporter_launchd_plist (non-root user)
+  ansible.builtin.set_fact:
+    node_exporter_launchd_plist: "/Library/LaunchAgents/{{ node_exporter_ident }}.plist"
+  when: "node_exporter_user != 'root'"
+
+- name: Ensure node_exporter launchd plist file exists
   become: true
   ansible.builtin.template:
     src: "{{ node_exporter_ident }}.plist.j2"
-    dest: "{{ node_exporter_plist }}"
+    dest: "{{ node_exporter_launchd_plist }}"
     mode: "0644"
-  register: node_exporter_plist_template
+  register: node_exporter_launchd_plist_template
 
 - name: See if node_exporter service exists
   ansible.builtin.command: "launchctl list {{ node_exporter_ident }}"
@@ -37,18 +77,18 @@
   ignore_errors: true
   register: node_exporter_service_list
 
-- name: Get current UID
-  ansible.builtin.command: "id -u"
+- name: Get UID for node_exporter user
+  ansible.builtin.command: "id -u {{ node_exporter_user }}"
   changed_when: false
   register: uid
 
 - name: Unload node_exporter service if template file was changed  # noqa: no-handler
   become: true
   ansible.builtin.command: >
-    launchctl bootout gui/{{ uid.stdout }} {{ node_exporter_plist }}
+    launchctl bootout gui/{{ uid.stdout }} {{ node_exporter_launchd_plist }}
   changed_when: false
   when: >
-    node_exporter_plist_template is changed and
+    node_exporter_launchd_plist_template is changed and
     node_exporter_service_list is succeeded
 
 # The launchctl bootstrap command will fail if the service is already running, so we
@@ -62,7 +102,7 @@
 - name: Load node_exporter service
   become: true
   ansible.builtin.command: >
-    launchctl bootstrap gui/{{ uid.stdout }} {{ node_exporter_plist }}
+    launchctl bootstrap gui/{{ uid.stdout }} {{ node_exporter_launchd_plist }}
   register: node_exporter_load
   when: node_exporter_pgrep.rc != 0
 

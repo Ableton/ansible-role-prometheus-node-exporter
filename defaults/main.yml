@@ -2,27 +2,29 @@
 # Arguments to pass to the node_exporter service, one argument per line.
 node_exporter_args: []
 
-# Port to listen on
-node_exporter_port: 9100
+# Binary architecture to fetch when downloading the node_exporter binary. Only relevant
+# when node_exporter_install_from_binary is true.
+node_exporter_binary_arch: "amd64"
+
+# If true, then create the node_exporter_user/node_exporter_group user/group. Otherwise,
+# the user and group are assumed to already exist (only used on Unix platforms).
+node_exporter_create_user: true
+
+# Group for the node_exporter_user user (only used on Unix platforms).
+node_exporter_group: "node_exporter"
 
 # When true, node_exporter will be installed from a binary download and not via a package
 # manager. This option is not supported on all system types.
 node_exporter_install_from_binary: false
 
-# Binary architecture to fetch when downloading the node_exporter binary. Only relevant
-# when node_exporter_install_from_binary is true.
-node_exporter_binary_arch: "amd64"
-
-# Group for the node_exporter_user user. Only relevant when
-# node_exporter_install_from_binary is true.
-node_exporter_group: "node_exporter"
+# Port to listen on
+node_exporter_port: 9100
 
 # ProcessType to use in the Mac launchd plist file. Please refer to `man 5 launchd.plist`
 # for an explanation of different values.
 node_exporter_process_type_mac: "Background"
 
-# User to run node_exporter as. Only relevant when node_exporter_install_from_binary is
-# true or on macOS systems.
+# User to run node_exporter as (only used on Unix platforms).
 node_exporter_user: "node_exporter"
 
 # Version of node_exporter to install. Because some package managers (like homebrew) don't
