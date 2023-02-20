@@ -37,13 +37,12 @@
 - name: Unload and remove legacy launchd service
   when: node_exporter_legacy_launchd_plist_file.stat.exists
   block:
-    # TODO: Remove this suppression when ansible-lint learns to parse block conditions
-    # See: https://github.com/ansible/ansible-lint/issues/1894
-    - name: Unload legacy node_exporter service  # noqa no-changed-when
+    - name: Unload legacy node_exporter service
       become: true
       ansible.builtin.command: >
         launchctl bootout gui/{{ uid.stdout }}
         {{ node_exporter_legacy_launchd_plist }}
+      changed_when: true
       # The service doesn't necessarily have to be running
       ignore_errors: true  # noqa ignore-errors
 
@@ -103,6 +102,7 @@
   become: true
   ansible.builtin.command: >
     launchctl bootstrap gui/{{ uid.stdout }} {{ node_exporter_launchd_plist }}
+  changed_when: true
   register: node_exporter_load
   when: node_exporter_pgrep.rc != 0
 
