@@ -7,4 +7,4 @@
       - "--collector.cpu"
     node_exporter_port: 9999
   roles:
-    - ansible-role-prometheus-node-exporter
+    - ableton.prometheus_node_exporter
