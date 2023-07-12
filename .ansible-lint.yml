@@ -1,6 +1,7 @@
 ---
 exclude_paths:
   - .ansible
+  - .direnv
   - .venv
   - molecule/*/converge.yml
 parseable: true
