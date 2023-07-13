@@ -9,4 +9,4 @@
     node_exporter_port: 9999
     node_exporter_version: "1.4.0"
   roles:
-    - ansible-role-prometheus-node-exporter
+    - ableton.prometheus_node_exporter
