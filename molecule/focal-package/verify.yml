@@ -60,4 +60,4 @@
     # and also doesn't correctly detect if it is running.
     - name: Assert that service was installed correctly
       ansible.builtin.assert:
-        that: "'prometheus-node-exporter' in {{ ansible_facts.services | flatten }}"
+        that: "'prometheus-node-exporter' in ansible_facts.services | flatten"

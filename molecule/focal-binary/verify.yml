@@ -36,7 +36,7 @@
     - name: Assert that service was installed correctly
       ansible.builtin.assert:
         that:
-          - "'prometheus-node-exporter' in {{ ansible_facts.services | flatten }}"
+          - "'prometheus-node-exporter' in ansible_facts.services | flatten"
           - ansible_facts.services['prometheus-node-exporter'].state == 'running'
 
     - name: Slurp node_exporter PID file
