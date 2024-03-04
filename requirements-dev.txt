@@ -8,7 +8,7 @@ ansible-compat==4.1.11
     # via
     #   ansible-lint
     #   molecule
-ansible-core==2.16.3
+ansible-core==2.16.4
     # via
     #   -r requirements-dev.in
     #   ansible-compat
@@ -112,7 +112,7 @@ requests==2.31.0
     #   molecule-plugins
 resolvelib==1.0.1
     # via ansible-core
-rich==13.7.0
+rich==13.7.1
     # via
     #   ansible-lint
     #   enrich
