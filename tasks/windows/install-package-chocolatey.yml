@@ -5,3 +5,21 @@
     params: "/ListenPort:{{ node_exporter_port }}"
     state: present
     version: "{{ windows_exporter_version }}"
+
+- name: Set process priority
+  ansible.windows.win_regedit:
+    path: "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\
+      \\Image File Execution Options\\windows_exporter.exe\\PerfOptions"
+    name: "CpuPriorityClass"
+    data: "{{ node_exporter_process_priority_win }}"
+    type: dword
+  register: win_process_priority_result
+
+# We actually could use a handler here, except that the presence of the win_service module
+# in the handler's `main.yml` file causes ansible-lint to fail, because it doesn't support
+# linting Windows-specific modules.
+- name: Restart windows_exporter service for Windows  # noqa: no-handler
+  ansible.windows.win_service:
+    name: "windows_exporter"
+    state: restarted
+  when: win_process_priority_result is changed
