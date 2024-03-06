@@ -24,6 +24,14 @@ node_exporter_port: 9100
 # for an explanation of different values.
 node_exporter_process_type_mac: "Background"
 
+# Process priority to set on Windows. Possible values are:
+# High: 3
+# Above Normal: 6
+# Normal: 2
+# Below Normal: 5
+# Low: 1
+node_exporter_process_priority_win: 2
+
 # User to run node_exporter as (only used on Unix platforms).
 node_exporter_user: "node_exporter"
 
