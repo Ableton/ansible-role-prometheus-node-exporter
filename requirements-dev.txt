@@ -133,7 +133,7 @@ subprocess-tee==0.4.1
     # via
     #   ansible-compat
     #   ansible-lint
-urllib3==2.2.1
+urllib3==2.2.2
     # via
     #   docker
     #   requests
