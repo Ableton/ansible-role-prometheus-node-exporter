@@ -8,7 +8,7 @@ ansible-compat==24.7.0
     # via
     #   ansible-lint
     #   molecule
-ansible-core==2.17.2
+ansible-core==2.17.3
     # via
     #   -r requirements-dev.in
     #   ansible-compat
@@ -68,7 +68,7 @@ markupsafe==2.1.5
     # via jinja2
 mdurl==0.1.2
     # via markdown-it-py
-molecule==24.7.0
+molecule==24.8.0
     # via
     #   -r requirements-dev.in
     #   molecule-plugins
