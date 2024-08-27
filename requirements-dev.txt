@@ -4,7 +4,7 @@
 #
 #    pip-compile --no-emit-index-url --output-file=requirements-dev.txt requirements-dev.in
 #
-ansible-compat==24.7.0
+ansible-compat==24.8.0
     # via
     #   ansible-lint
     #   molecule
@@ -47,9 +47,9 @@ enrich==1.2.7
     # via molecule
 filelock==3.15.4
     # via ansible-lint
-idna==3.7
+idna==3.8
     # via requests
-importlib-metadata==8.2.0
+importlib-metadata==8.4.0
     # via ansible-lint
 jinja2==3.1.4
     # via
