@@ -4,7 +4,7 @@
 #
 #    pip-compile --no-emit-index-url --output-file=requirements-dev.txt requirements-dev.in
 #
-ansible-compat==24.9.1
+ansible-compat==24.10.0
     # via
     #   ansible-lint
     #   molecule
@@ -14,7 +14,7 @@ ansible-core==2.18.0
     #   ansible-compat
     #   ansible-lint
     #   molecule
-ansible-lint==24.9.2
+ansible-lint==24.10.0
     # via -r requirements-dev.in
 attrs==24.2.0
     # via
