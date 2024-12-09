@@ -68,7 +68,7 @@ markupsafe==3.0.2
     # via jinja2
 mdurl==0.1.2
     # via markdown-it-py
-molecule==24.9.0
+molecule==24.12.0
     # via
     #   -r requirements-dev.in
     #   molecule-plugins
@@ -119,7 +119,7 @@ rich==13.9.4
     #   ansible-lint
     #   enrich
     #   molecule
-rpds-py==0.21.0
+rpds-py==0.22.3
     # via
     #   jsonschema
     #   referencing
