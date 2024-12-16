@@ -14,7 +14,7 @@ ansible-core==2.18.1
     #   ansible-compat
     #   ansible-lint
     #   molecule
-ansible-lint==24.10.0
+ansible-lint==24.12.2
     # via -r requirements-dev.in
 attrs==24.2.0
     # via
@@ -24,7 +24,7 @@ black==24.10.0
     # via ansible-lint
 bracex==2.5.post1
     # via wcmatch
-certifi==2024.8.30
+certifi==2024.12.14
     # via requests
 cffi==1.17.1
     # via cryptography
@@ -116,7 +116,6 @@ resolvelib==1.0.1
     # via ansible-core
 rich==13.9.4
     # via
-    #   ansible-lint
     #   enrich
     #   molecule
 rpds-py==0.22.3
