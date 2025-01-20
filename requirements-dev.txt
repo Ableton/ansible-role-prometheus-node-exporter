@@ -103,7 +103,7 @@ pyyaml==6.0.2
     #   ansible-lint
     #   molecule
     #   yamllint
-referencing==0.35.1
+referencing==0.36.1
     # via
     #   jsonschema
     #   jsonschema-specifications
@@ -132,6 +132,8 @@ subprocess-tee==0.4.2
     # via
     #   ansible-compat
     #   ansible-lint
+typing-extensions==4.12.2
+    # via referencing
 urllib3==2.3.0
     # via
     #   docker
