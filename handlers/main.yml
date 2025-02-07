@@ -6,7 +6,7 @@
     name: "prometheus-node-exporter"
     state: restarted
 
-- name: Restart node_exporter for SysvInit
+- name: Restart node_exporter for sysvinit
   become: true
   ansible.builtin.sysvinit:
     name: "prometheus-node-exporter"
