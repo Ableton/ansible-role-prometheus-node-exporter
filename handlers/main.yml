@@ -7,7 +7,5 @@
     state: restarted
 
 - name: Restart node_exporter for sysvinit
-  become: true
-  ansible.builtin.sysvinit:
-    name: "prometheus-node-exporter"
-    state: restarted
+  ansible.builtin.include_tasks:
+    file: "sysvinit.yml"
