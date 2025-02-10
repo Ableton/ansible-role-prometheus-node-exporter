@@ -13,4 +13,5 @@
     content: "ARGS='{{ node_exporter_args | join(' ') }} \
       --web.listen-address=:{{ node_exporter_port }}'"
     mode: "0644"
+  notify: "Restart node_exporter for {{ ansible_service_mgr }}"
   when: not node_exporter_install_from_binary

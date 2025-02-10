@@ -1,8 +1,42 @@
 ---
+- name: Get info for the windows_exporter service
+  ansible.windows.win_service_info:
+    name: "windows_exporter"
+  register: service_info
+  ignore_errors: true
+  when: windows_exporter_textfile_dir is defined
+
+- name: Set expected_textfile_parameter fact
+  ansible.builtin.set_fact:
+    expected_textfile_parameter: >-
+      --collector.textfile.directory {{ windows_exporter_textfile_dir }}
+  when:
+    - windows_exporter_textfile_dir is defined
+    - service_info.exists
+
+- name: Set windows_exporter_force_uninstall fact
+  ansible.builtin.set_fact:
+    windows_exporter_force_uninstall: true
+  when:
+    - windows_exporter_textfile_dir is defined
+    - service_info.exists
+    - not expected_textfile_parameter in service_info.services[0].path
+
+- name: Uninstall windows-exporter package
+  chocolatey.chocolatey.win_chocolatey:
+    name: "prometheus-windows-exporter.install"
+    state: absent
+  when:
+    - windows_exporter_force_uninstall is defined
+    - windows_exporter_force_uninstall
+
 - name: Install prometheus-windows-exporter package
   chocolatey.chocolatey.win_chocolatey:
     name: prometheus-windows-exporter.install
-    params: "/ListenPort:{{ node_exporter_port }}"
+    params: >-
+      /ListenPort:{{ node_exporter_port }}
+      {{ "/TextFileDir:" + windows_exporter_textfile_dir
+      if windows_exporter_textfile_dir }}
     state: present
     version: "{{ windows_exporter_version }}"
 

@@ -1,0 +1,14 @@
+---
+# Make sure the service is running, otherwise restarting will fail due to a missing pid
+# file directory.
+- name: Start node_exporter sysvinit service
+  become: true
+  ansible.builtin.sysvinit:
+    name: "prometheus-node-exporter"
+    state: started
+
+- name: Restart node_exporter sysvinit service
+  become: true
+  ansible.builtin.sysvinit:
+    name: "prometheus-node-exporter"
+    state: restarted
