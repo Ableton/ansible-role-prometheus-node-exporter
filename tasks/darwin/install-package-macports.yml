@@ -4,3 +4,15 @@
   community.general.macports:
     name: "node_exporter"
     state: present
+
+# The MacPorts package for node_exporter installs its own launchd service, which competes
+# with the service added by this role. Annoyingly, the service isn't activated unless the
+# user runs `port load node_exporter`, or if the machine reboots. Since the service isn't
+# loaded by default, we can just remove it directly after installing the package.
+# Note that the plist file in /Library/LaunchDaemons is actually a symlink to:
+# /opt/local/etc/LaunchDaemons/org.macports.node_exporter/org.macports.node_exporter.plist
+- name: Remove MacPorts service for node_exporter
+  become: true
+  ansible.builtin.file:
+    path: "/Library/LaunchDaemons/org.macports.node_exporter.plist"
+    state: absent
