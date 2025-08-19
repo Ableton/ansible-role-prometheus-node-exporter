@@ -2,4 +2,3 @@ ansible-core
 ansible-lint
 molecule
 molecule-plugins[docker]
-requests==2.32.5
