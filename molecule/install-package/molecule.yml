@@ -1,0 +1,15 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: ansible-role-prometheus-node-exporter-install-package-focal
+    image: ubuntu:20.04
+  - name: ansible-role-prometheus-node-exporter-install-package-noble
+    image: ubuntu:24.04
+provisioner:
+  name: ansible
+  log: true
+verifier:
+  name: ansible
