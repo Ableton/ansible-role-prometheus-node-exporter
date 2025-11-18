@@ -4,8 +4,8 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: ansible-role-prometheus-node-exporter-install-binary-focal
-    image: ubuntu:20.04
+  - name: ansible-role-prometheus-node-exporter-install-binary-jammy
+    image: ubuntu:22.04
   - name: ansible-role-prometheus-node-exporter-install-binary-noble
     image: ubuntu:24.04
 provisioner:
