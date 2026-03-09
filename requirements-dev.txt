@@ -14,13 +14,13 @@ ansible-core==2.20.3
     #   ansible-compat
     #   ansible-lint
     #   molecule
-ansible-lint==26.2.0
+ansible-lint==26.3.0
     # via -r requirements-dev.in
 attrs==25.4.0
     # via
     #   jsonschema
     #   referencing
-black==26.1.0
+black==26.3.0
     # via ansible-lint
 bracex==2.6
     # via wcmatch
@@ -30,7 +30,7 @@ cffi==2.0.0
     # via
     #   ansible-lint
     #   cryptography
-charset-normalizer==3.4.4
+charset-normalizer==3.4.5
     # via requests
 click==8.3.1
     # via
@@ -69,7 +69,7 @@ markupsafe==3.0.3
     # via jinja2
 mdurl==0.1.2
     # via markdown-it-py
-molecule==26.2.0
+molecule==26.3.0
     # via
     #   -r requirements-dev.in
     #   molecule-plugins
@@ -89,7 +89,7 @@ pathspec==1.0.4
     #   ansible-lint
     #   black
     #   yamllint
-platformdirs==4.9.2
+platformdirs==4.9.4
     # via black
 pluggy==1.6.0
     # via molecule
