@@ -8,7 +8,7 @@ ansible-compat==25.12.1
     # via
     #   ansible-lint
     #   molecule
-ansible-core==2.20.3
+ansible-core==2.20.4
     # via
     #   -r requirements-dev.in
     #   ansible-compat
@@ -36,7 +36,7 @@ click==8.3.1
     # via
     #   black
     #   molecule
-cryptography==46.0.5
+cryptography==46.0.6
     # via
     #   ansible-core
     #   ansible-lint
@@ -95,7 +95,7 @@ pluggy==1.6.0
     # via molecule
 pycparser==3.0
     # via cffi
-pygments==2.19.2
+pygments==2.20.0
     # via rich
 pytokens==0.4.1
     # via black
@@ -111,7 +111,7 @@ referencing==0.37.0
     #   ansible-lint
     #   jsonschema
     #   jsonschema-specifications
-requests==2.32.5
+requests==2.33.0
     # via
     #   docker
     #   molecule-plugins
