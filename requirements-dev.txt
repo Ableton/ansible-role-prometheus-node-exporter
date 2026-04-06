@@ -4,7 +4,7 @@
 #
 #    pip-compile --no-emit-index-url --output-file=requirements-dev.txt requirements-dev.in
 #
-ansible-compat==25.12.1
+ansible-compat==26.3.0
     # via
     #   ansible-lint
     #   molecule
@@ -14,7 +14,7 @@ ansible-core==2.20.4
     #   ansible-compat
     #   ansible-lint
     #   molecule
-ansible-lint==26.3.0
+ansible-lint==26.4.0
     # via -r requirements-dev.in
 attrs==26.1.0
     # via
@@ -30,9 +30,9 @@ cffi==2.0.0
     # via
     #   ansible-lint
     #   cryptography
-charset-normalizer==3.4.6
+charset-normalizer==3.4.7
     # via requests
-click==8.3.1
+click==8.3.2
     # via
     #   black
     #   molecule
@@ -111,7 +111,7 @@ referencing==0.37.0
     #   ansible-lint
     #   jsonschema
     #   jsonschema-specifications
-requests==2.33.0
+requests==2.33.1
     # via
     #   docker
     #   molecule-plugins
