@@ -48,7 +48,7 @@ docker==7.1.0
     # via molecule-plugins
 enrich==1.2.7
     # via molecule
-filelock==3.25.2
+filelock==3.29.0
     # via ansible-lint
 idna==3.11
     # via requests
@@ -77,7 +77,7 @@ molecule-plugins[docker]==25.8.12
     # via -r requirements-dev.in
 mypy-extensions==1.1.0
     # via black
-packaging==26.0
+packaging==26.1
     # via
     #   ansible-compat
     #   ansible-core
