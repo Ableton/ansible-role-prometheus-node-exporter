@@ -8,7 +8,7 @@ ansible-compat==26.3.0
     # via
     #   ansible-lint
     #   molecule
-ansible-core==2.20.4
+ansible-core==2.20.5
     # via
     #   -r requirements-dev.in
     #   ansible-compat
@@ -24,7 +24,7 @@ black==26.3.1
     # via ansible-lint
 bracex==2.6
     # via wcmatch
-certifi==2026.2.25
+certifi==2026.4.22
     # via requests
 cffi==2.0.0
     # via
@@ -32,11 +32,11 @@ cffi==2.0.0
     #   cryptography
 charset-normalizer==3.4.7
     # via requests
-click==8.3.2
+click==8.3.3
     # via
     #   black
     #   molecule
-cryptography==46.0.7
+cryptography==47.0.0
     # via
     #   ansible-core
     #   ansible-lint
@@ -50,7 +50,7 @@ enrich==1.2.7
     # via molecule
 filelock==3.29.0
     # via ansible-lint
-idna==3.11
+idna==3.13
     # via requests
 jinja2==3.1.6
     # via
@@ -77,7 +77,7 @@ molecule-plugins[docker]==25.8.12
     # via -r requirements-dev.in
 mypy-extensions==1.1.0
     # via black
-packaging==26.1
+packaging==26.2
     # via
     #   ansible-compat
     #   ansible-core
