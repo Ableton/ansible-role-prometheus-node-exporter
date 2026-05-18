@@ -20,7 +20,7 @@ attrs==26.1.0
     # via
     #   jsonschema
     #   referencing
-black==26.3.1
+black==26.5.0
     # via ansible-lint
 bracex==2.6
     # via wcmatch
@@ -32,7 +32,7 @@ cffi==2.0.0
     #   cryptography
 charset-normalizer==3.4.7
     # via requests
-click==8.3.3
+click==8.4.0
     # via
     #   black
     #   molecule
@@ -50,7 +50,7 @@ enrich==1.2.7
     # via molecule
 filelock==3.29.0
     # via ansible-lint
-idna==3.14
+idna==3.15
     # via requests
 jinja2==3.1.6
     # via
@@ -111,7 +111,7 @@ referencing==0.37.0
     #   ansible-lint
     #   jsonschema
     #   jsonschema-specifications
-requests==2.33.1
+requests==2.34.2
     # via
     #   docker
     #   molecule-plugins
