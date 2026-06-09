@@ -23,7 +23,7 @@
       when: node_exporter_create_user
 
     - name: Include tasks to install binary on Unix hosts
-      ansible.builtin.import_tasks: "unix/install-binary.yml"
+      ansible.builtin.include_tasks: "unix/install-binary.yml"
       when: node_exporter_install_from_binary
 
     - name: Include OS-specific tasks to install via package manager
