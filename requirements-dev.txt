@@ -8,7 +8,7 @@ ansible-compat==26.6.0
     # via
     #   ansible-lint
     #   molecule
-ansible-core==2.21.1
+ansible-core==2.21.2
     # via
     #   -r requirements-dev.in
     #   ansible-compat
@@ -48,7 +48,7 @@ docker==7.2.0
     # via molecule-plugins
 enrich==1.2.7
     # via molecule
-filelock==3.29.7
+filelock==3.31.0
     # via ansible-lint
 idna==3.18
     # via requests
@@ -73,7 +73,7 @@ molecule==26.6.0
     # via
     #   -r requirements-dev.in
     #   molecule-plugins
-molecule-plugins[docker]==26.7.8
+molecule-plugins[docker]==26.7.15
     # via -r requirements-dev.in
 mypy-extensions==1.1.0
     # via black
@@ -89,7 +89,7 @@ pathspec==1.1.1
     #   ansible-lint
     #   black
     #   yamllint
-platformdirs==4.10.0
+platformdirs==4.10.1
     # via black
 pluggy==1.6.0
     # via molecule
