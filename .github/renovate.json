@@ -1,15 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "constraints": {
-    "python": "3.12.12"
-  },
-  "extends": [
-    "config:recommended"
-  ],
-  "enabledManagers": [
-    "ansible-galaxy",
-    "pip-compile"
-  ],
+  "constraints": {"python": "3.12.12"},
+  "extends": ["config:recommended"],
+  "enabledManagers": ["ansible-galaxy", "pip-compile"],
   "pip-compile": {
     "managerFilePatterns": [
       "/^requirements-dev\\.txt$/"
