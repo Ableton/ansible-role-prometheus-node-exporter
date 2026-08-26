@@ -13,20 +13,16 @@
     node_exporter_should_install: true
   when: not node_exporter_exists.stat.exists
 
-# binary_name, version X.Y.Z (branch: HEAD, revision: 1234abcd)
-#  build user:       root@b50852a1acba
-#  build date:       20190604-16:41:18
-#  go version:       go1.12.5
 - name: Get node_exporter version
-  ansible.builtin.shell: |
-    set -o pipefail
-    {{ node_exporter_dest }}/{{ node_exporter_exe }} --version 2>&1 |
-    head -1 |
-    awk '{print $3}'
-  args:
-    executable: "/bin/bash"
+  ansible.builtin.command: "{{ node_exporter_dest }}/{{ node_exporter_exe }} --version"
   changed_when: false
-  register: node_exporter_installed_version
+  register: node_exporter_version_ouptut
+  when: node_exporter_exists.stat.exists
+
+- name: Parse node_exporter version
+  ansible.builtin.set_fact:
+    node_exporter_installed_version: "{{ node_exporter_version_ouptut.stdout |\
+      regex_search('node_exporter, version (.+)', '\\1') }}"
   when: node_exporter_exists.stat.exists
 
 - name: Install node_exporter if the version does not match
