@@ -13,7 +13,6 @@
     node_exporter_should_install: true
   when: not node_exporter_exists.stat.exists
 
-# Almost all go binaries will output their version to stderr in the following format:
 # binary_name, version X.Y.Z (branch: HEAD, revision: 1234abcd)
 #  build user:       root@b50852a1acba
 #  build date:       20190604-16:41:18
