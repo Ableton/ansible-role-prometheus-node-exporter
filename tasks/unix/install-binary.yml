@@ -1,4 +1,19 @@
 ---
+- name: Ensure that gtar is installed
+  ansible.builtin.command: "gtar --version"
+  changed_when: false
+  ignore_errors: true
+  register: gtar_check
+  when: ansible_system == "Darwin"
+
+- name: Fail if gtar is not installed
+  ansible.builtin.fail:
+    msg: "gtar is required to unpack the node_exporter binary. \
+      Please install it and re-run the playbook."
+  when:
+    - ansible_system == "Darwin"
+    - gtar_check.rc != 0
+
 - name: Set fact to determine if node_exporter should be installed
   ansible.builtin.set_fact:
     node_exporter_should_install: false
