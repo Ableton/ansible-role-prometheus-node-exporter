@@ -50,6 +50,13 @@
   delay: 2
   when: node_exporter_should_install
 
+- name: Ensure that the destination directory exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ node_exporter_dest }}"
+    state: directory
+    mode: "0755"
+
 - name: Unpack node_exporter binary
   become: true
   ansible.builtin.unarchive:
