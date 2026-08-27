@@ -2,15 +2,43 @@
 - name: Install node_exporter for Unix hosts
   when: ansible_os_family != "Windows"
   block:
-    - name: Ensure that the group for node_exporter exists
+    - name: Check for node_exporter group
+      become: true
+      check_mode: true
+      ansible.builtin.group:
+        name: "{{ node_exporter_group }}"
+        state: present
+      register: node_exporter_group_check_result
+
+    - name: Set node_exporter_group_exists fact
+      ansible.builtin.set_fact:
+        node_exporter_group_exists: "{{ not node_exporter_group_check_result.changed \
+          | bool }}"
+
+    - name: Create group for node_exporter if it does not exist
       become: true
       ansible.builtin.group:
         name: "{{ node_exporter_group }}"
         system: true
         state: present
-      when: node_exporter_create_user
+      when:
+        - node_exporter_create_user
+        - not node_exporter_group_exists
 
-    - name: Ensure that the user for node_exporter exists
+    - name: Check for node_exporter user
+      become: true
+      check_mode: true
+      ansible.builtin.user:
+        name: "{{ node_exporter_user }}"
+        state: present
+      register: node_exporter_user_check_result
+
+    - name: Set node_exporter_user_exists fact
+      ansible.builtin.set_fact:
+        node_exporter_user_exists: "{{ not node_exporter_user_check_result.changed \
+          | bool }}"
+
+    - name: Create user for node_exporter if it does not exist
       become: true
       ansible.builtin.user:
         name: "{{ node_exporter_user }}"
@@ -20,7 +48,9 @@
         shell: "/usr/sbin/nologin"
         system: true
         state: present
-      when: node_exporter_create_user
+      when:
+        - node_exporter_create_user
+        - not node_exporter_user_exists
 
     - name: Include tasks to install binary on Unix hosts
       ansible.builtin.include_tasks: "unix/install-binary.yml"
