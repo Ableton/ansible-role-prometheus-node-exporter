@@ -18,6 +18,9 @@ following OS types:
 - macOS (via the `homebrew` or `macports` module)
 - Windows (via the `win_chocolatey` module)
 
+When using the binary installation method on macOS, this role also requires GNU tar
+(`gtar`).
+
 Role Variables
 --------------
 
