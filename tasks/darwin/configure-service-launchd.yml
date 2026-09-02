@@ -6,9 +6,9 @@
     mode: "0755"
     state: directory
 
-- name: Set node_exporter_exe fact
+- name: Set node_exporter_full_path fact
   ansible.builtin.set_fact:
-    node_exporter_exe: "{{ ansible_pkg_mgr_bin }}/node_exporter"
+    node_exporter_full_path: "{{ ansible_pkg_mgr_bin }}/node_exporter"
 
 - name: Initialize fact for node_exporter extra arguments
   ansible.builtin.set_fact:

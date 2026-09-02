@@ -20,7 +20,7 @@
   <string>{{ node_exporter_process_type_mac }}</string>
   <key>ProgramArguments</key>
   <array>
-    <string>{{ node_exporter_exe }}</string>
+    <string>{{ node_exporter_full_path }}</string>
     {{ node_exporter_args_mac }}
     <string>--web.listen-address=:{{ node_exporter_port }}</string>
   </array>
