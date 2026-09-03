@@ -15,17 +15,11 @@ Ansible >= 2.10 is required. This role supports package-based installation on th
 following OS types:
 
 - Debian Linux (via the `apt` module)
-- macOS (via the `homebrew` module)
+- macOS (via the `homebrew` or `macports` module)
 - Windows (via the `win_chocolatey` module)
 
-For all other platforms, a source-based installation will be performed. On such systems
-where package-based installation is *not* available, the following software is required:
-
-- Go (golang)
-- GNU Make
-
-This role does *not* install either of the above software on the host; you must take care
-to do that before applying this role.
+When using the binary installation method on macOS, this role also requires GNU tar
+(`gtar`).
 
 Role Variables
 --------------
