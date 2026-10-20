@@ -18,6 +18,9 @@
       ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}\
         /configure-service-{{ ansible_service_mgr }}.yml"
 
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+
 - name: Install node_exporter for Windows hosts
   when: ansible_os_family == "Windows"
   block:
